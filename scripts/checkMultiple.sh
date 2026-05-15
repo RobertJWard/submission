@@ -11,9 +11,14 @@
 # joblist="151X_noHCALStep_retry 151X_rerunHCALStep_retry 151X_newHCALStep_retry 151pre4_P2GT_retry 151pre4_P2GTupdate1"
 # joblist="151pre4_P2GT_retry 151pre4_P2GTupdate1"
 # joblist="151pre4_P2GTupdate2"
-joblist="151pre4_P2GTupdate4"
+# joblist="151pre4_P2GTupdate4"
+# joblist="151pre4 160pre1 160pre2"
+# joblist="151pre4_retry 160pre2_retry"
+# joblist="160pre2_retry"
+# joblist="151pre4_VBF 160pre1_VBF"
+joblist="170pre1"
 
-revision=8pm
+revision=9am
 RESUBMIT=$1
 
 for job in $joblist; do

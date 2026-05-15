@@ -3,9 +3,12 @@
 # INPUTS="151X_noHCALStep 151X_rerunHCALStep 151X_newHCALStep 151pre4_P2GT"
 # INPUTS="151X_noHCALStep_retry 151X_rerunHCALStep_retry 151X_newHCALStep_retry"
 # INPUTS="151pre4_P2GT_retry 151pre4_P2GTupdate1"
-INPUTS="151pre4_P2GTupdate4"
+# INPUTS="151pre4_P2GTupdate4"
+# INPUTS="151pre4_retry"
+# INPUTS="151pre4_VBF 160pre1_VBF"
+INPUTS="170pre1"
 
-REVISION="250903"
+REVISION="260514"
 
 TEMP=$(mktemp -d)
 echo "Temp directory is $TEMP"
