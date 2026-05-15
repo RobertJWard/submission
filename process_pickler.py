@@ -1,7 +1,8 @@
 
 import pickle
 import optparse
-import imp
+# import imp # removed in python 3.12
+import importlib.util
 import traceback
 
 
@@ -9,10 +10,13 @@ def pickler(input_file, output_file):
     print('input {}'.format(input_file))
     print('output {}'.format(output_file))
 
-    handle = open(input_file, 'r')
-    cfo = imp.load_source("pycfg", input_file, handle)
+    # handle = open(input_file, 'r') # obsolete in python 3.12
+    # cfo = imp.load_source("pycfg", input_file, handle) # obsolete in python 3.12
+    spec = importlib.util.spec_from_file_location("pycfg", input_file)
+    cfo = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(cfo)
     cmsProcess = cfo.process
-    handle.close()
+    # handle.close()
 
     pklFile_name = '{}.pkl'.format(output_file.split('.')[0])
     pklFile = open(pklFile_name, "wb")
