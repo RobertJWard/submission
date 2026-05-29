@@ -16,9 +16,11 @@
 # joblist="151pre4_retry 160pre2_retry"
 # joblist="160pre2_retry"
 # joblist="151pre4_VBF 160pre1_VBF"
-joblist="170pre1"
+# joblist="170pre1"
+# joblist="170pre1_MuonOMTF 161pre4 161pre3"
+joblist="170pre1_NGJetModel 161pre4_MuonGMT 161pre4_CorrEmu"
 
-revision=9am
+revision=4pm
 RESUBMIT=$1
 
 for job in $joblist; do

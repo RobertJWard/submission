@@ -6,9 +6,11 @@
 # INPUTS="151pre4_P2GTupdate4"
 # INPUTS="151pre4_retry"
 # INPUTS="151pre4_VBF 160pre1_VBF"
-INPUTS="170pre1"
+# INPUTS="170pre1"
+INPUTS="170pre1_MuonOMTF 161pre4 161pre3"
 
-REVISION="260514"
+
+REVISION="260518"
 
 TEMP=$(mktemp -d)
 echo "Temp directory is $TEMP"
