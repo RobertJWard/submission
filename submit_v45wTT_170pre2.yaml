@@ -3,21 +3,33 @@ Common:
   name: ntuples
 
   tasks:
-    - TT_Spring24_200PU
-    - DY_M50_Spring24_200PU
-    - VBFHtoTaus_Spring24_200PU
-    - Hto2gg_Spring24_200PU
-    # - DY_M10_Spring24_200PU
-    - MinBias_Spring24_200PUALCA
-    - TT_Spring24_140PU
-    - DY_M50_Spring24_140PU
-    - VBFHtoTaus_Spring24_140PU
-    - Hto2gg_Spring24_140PU
-    # - DY_M10_Spring24_140PU
-    - MinBias_Spring24_140PU
+    # - TT_Spring24_200PU
+    # - DY_M50_Spring24_200PU
+    # - VBFHtoTaus_Spring24_200PU
+    # - Hto2gg_Spring24_200PU
+    # # - DY_M10_Spring24_200PU
+    # - MinBias_Spring24_200PUALCA
+    # - TT_Spring24_140PU
+    # - DY_M50_Spring24_140PU
+    # - VBFHtoTaus_Spring24_140PU
+    # - Hto2gg_Spring24_140PU
+    # # - DY_M10_Spring24_140PU
+    # - MinBias_Spring24_140PU
     # - VBFHtoBB_Spring24_200PU
     # - VBFHtoCC_Spring24_200PU
     # - VBFHtoInv_Spring24_200PU
+    - GluGluToHHTo2B2Tau_Spring24_200PU
+    - GluGluToHHTo4B_Spring24_200PU
+    - WTo3Pi_Spring24_200PU
+    - DisplacedMuons_Pt-2To10_Spring24_200PU
+    - DisplacedMuons_Pt-10To30_Spring24_200PU
+    - DisplacedMuons_Pt-30To100_Spring24_200PU
+    - DisplacedMuons_Pt-2To10_Spring24_140PU
+    - DisplacedMuons_Pt-10To30_Spring24_140PU
+    - DisplacedMuons_Pt-30To100_Spring24_140PU
+    # # - DisplacedMuons_Pt-2To10_Spring24_noPU
+    # # - DisplacedMuons_Pt-10To30_Spring24_noPU
+    # # - DisplacedMuons_Pt-30To100_Spring24_noPU
     # - HTo2LongLivedTo2mu2jets_MH-125_MFF-20_CTau-1300mm_Spring24_200PU
     # - HTo2LongLivedTo2mu2jets_MH-125_MFF-50_CTau-5000mm_Spring24_200PU
     # - HTo2LongLivedTo4mu_MH-125_MFF-12_CTau-10000mm_Spring24_200PU
@@ -133,6 +145,90 @@ VBFHtoCC_Spring24_200PU:
 
 VBFHtoInv_Spring24_200PU:
   input_dataset: /VBF_HToInvisible_M-125_TuneCP5_14TeV-powheg-pythia8/Phase2Spring24DIGIRECOMiniAOD-PU200_Trk1GeV_140X_mcRun4_realistic_v4-v1/GEN-SIM-DIGI-RAW-MINIAOD
+  crab: True
+  splitting_mode: Automatic
+  splitting_granularity: 200
+  max_events: -1
+
+GluGluToHHTo2B2Tau_Spring24_200PU:
+  input_dataset: /GluGluToHHTo2B2Tau_node_SM_TuneCP5_14TeV-madgraph-pythia8/Phase2Spring24DIGIRECOMiniAOD-PU200_AllTP_140X_mcRun4_realistic_v4-v2/GEN-SIM-DIGI-RAW-MINIAOD
+  crab: True
+  splitting_mode: Automatic
+  splitting_granularity: 200
+  max_events: -1
+
+GluGluToHHTo4B_Spring24_200PU:
+  input_dataset: /GluGluToHHTo4B_node_SM_TuneCP5_14TeV-amcatnlo-pythia8/Phase2Spring24DIGIRECOMiniAOD-PU200_AllTP_140X_mcRun4_realistic_v4-v1/GEN-SIM-DIGI-RAW-MINIAOD
+  crab: True
+  splitting_mode: Automatic
+  splitting_granularity: 200
+  max_events: -1
+
+WTo3Pi_Spring24_200PU:
+  input_dataset: /WTo3Pi_TuneCP5_14TeV_pythia8/Phase2Spring24DIGIRECOMiniAOD-PU200_AllTP_140X_mcRun4_realistic_v4-v1/GEN-SIM-DIGI-RAW-MINIAOD
+  crab: True
+  splitting_mode: Automatic
+  splitting_granularity: 200
+  max_events: -1
+
+DisplacedMuons_Pt-2To10_Spring24_200PU:
+  input_dataset: /DisplacedMuons_Pt-2To10_Dxy-0To3000-gun/Phase2Spring24DIGIRECOMiniAOD-PU200_Trk1GeV_140X_mcRun4_realistic_v4-v1/GEN-SIM-DIGI-RAW-MINIAOD
+  crab: True
+  splitting_mode: Automatic
+  splitting_granularity: 200
+  max_events: -1
+
+DisplacedMuons_Pt-10To30_Spring24_200PU:
+  input_dataset: /DisplacedMuons_Pt-10To30_Dxy-0To3000-gun/Phase2Spring24DIGIRECOMiniAOD-PU200_Trk1GeV_140X_mcRun4_realistic_v4-v1/GEN-SIM-DIGI-RAW-MINIAOD
+  crab: True
+  splitting_mode: Automatic
+  splitting_granularity: 200
+  max_events: -1
+
+DisplacedMuons_Pt-30To100_Spring24_200PU:
+  input_dataset: /DisplacedMuons_Pt-30To100_Dxy-0To3000-gun/Phase2Spring24DIGIRECOMiniAOD-PU200_Trk1GeV_140X_mcRun4_realistic_v4-v1/GEN-SIM-DIGI-RAW-MINIAOD
+  crab: True
+  splitting_mode: Automatic
+  splitting_granularity: 200
+  max_events: -1
+
+DisplacedMuons_Pt-2To10_Spring24_140PU:
+  input_dataset: /DisplacedMuons_Pt-2To10_Dxy-0To3000-gun/Phase2Spring24DIGIRECOMiniAOD-PU140_Trk1GeV_140X_mcRun4_realistic_v4-v2/GEN-SIM-DIGI-RAW-MINIAOD
+  crab: True
+  splitting_mode: Automatic
+  splitting_granularity: 200
+  max_events: -1
+
+DisplacedMuons_Pt-10To30_Spring24_140PU:
+  input_dataset: /DisplacedMuons_Pt-10To30_Dxy-0To3000-gun/Phase2Spring24DIGIRECOMiniAOD-PU140_Trk1GeV_140X_mcRun4_realistic_v4-v2/GEN-SIM-DIGI-RAW-MINIAOD
+  crab: True
+  splitting_mode: Automatic
+  splitting_granularity: 200
+  max_events: -1
+
+DisplacedMuons_Pt-30To100_Spring24_140PU:
+  input_dataset: /DisplacedMuons_Pt-30To100_Dxy-0To3000-gun/Phase2Spring24DIGIRECOMiniAOD-PU140_Trk1GeV_140X_mcRun4_realistic_v4-v1/GEN-SIM-DIGI-RAW-MINIAOD
+  crab: True
+  splitting_mode: Automatic
+  splitting_granularity: 200
+  max_events: -1
+
+DisplacedMuons_Pt-2To10_Spring24_noPU:
+  input_dataset: /DisplacedMuons_Pt-2To10_Dxy-0To3000-gun/Phase2Spring24DIGIRECOMiniAOD-noPU_Trk1GeV_140X_mcRun4_realistic_v4-v1/GEN-SIM-DIGI-RAW-MINIAOD
+  crab: True
+  splitting_mode: Automatic
+  splitting_granularity: 200
+  max_events: -1
+
+DisplacedMuons_Pt-10To30_Spring24_noPU:
+  input_dataset: /DisplacedMuons_Pt-10To30_Dxy-0To3000-gun/Phase2Spring24DIGIRECOMiniAOD-noPU_Trk1GeV_140X_mcRun4_realistic_v4-v3/GEN-SIM-DIGI-RAW-MINIAOD
+  crab: True
+  splitting_mode: Automatic
+  splitting_granularity: 200
+  max_events: -1
+
+DisplacedMuons_Pt-30To100_Spring24_noPU:
+  input_dataset: /DisplacedMuons_Pt-30To100_Dxy-0To3000-gun/Phase2Spring24DIGIRECOMiniAOD-noPU_Trk1GeV_140X_mcRun4_realistic_v4-v1/GEN-SIM-DIGI-RAW-MINIAOD
   crab: True
   splitting_mode: Automatic
   splitting_granularity: 200
