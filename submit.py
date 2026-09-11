@@ -274,6 +274,7 @@ def getJobParams(mode, task_conf):
             params['TEMPL_INPUTDATASET'] = task_conf.input_dataset
         params['TEMPL_DATASETTAG'] = '{}_{}'.format(task_conf.task_name, task_conf.version)
         params['TEMPL_CRABOUTDIR'] = task_conf.output_dir_base.split('/eos/cms')[1].replace('/cmst3/', '/group/cmst3/')
+        # params['TEMPL_CRABOUTDIR'] = '/store/user/' + task_conf.output_dir_base.split('/eos/user/')[1].split('/', 1)[1]
 
         def get_from_env(variable):
             if variable in os.environ:
