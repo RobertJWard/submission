@@ -1,5 +1,6 @@
 *~
 *.pyc
-ntuples/
+ntuples
 logs/
 obsoleteFiles/
+sampleLists/
