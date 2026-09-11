@@ -19,9 +19,17 @@
 # joblist="170pre1"
 # joblist="170pre1_MuonOMTF 161pre4 161pre3"
 # joblist="170pre1_NGJetModel 161pre4_MuonGMT 161pre4_CorrEmu"
-joblist="170pre2"
+# joblist="170pre2"
+# joblist="170pre1_MuonOMTFUpdate1"
+# joblist="170pre2_JetWord"
+# joblist="200_D121 200_D127"
+# joblist="200_D128"
+joblist="200_D121"
+# joblist="170pre3"
+# joblist="200pre1_RelVal 170pre3_3rdTrain 200pre1_MuonShower"
+# joblist="200pre1_RelValwL1 170pre3_3rdTrain 200pre1_MuonShowerwL1"
 
-revision=4pm
+revision=11am
 RESUBMIT=$1
 
 for job in $joblist; do
