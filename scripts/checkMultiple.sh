@@ -24,12 +24,12 @@
 # joblist="170pre2_JetWord"
 # joblist="200_D121 200_D127"
 # joblist="200_D128"
-joblist="200_D121"
+joblist="200_D121_retry"
 # joblist="170pre3"
 # joblist="200pre1_RelVal 170pre3_3rdTrain 200pre1_MuonShower"
 # joblist="200pre1_RelValwL1 170pre3_3rdTrain 200pre1_MuonShowerwL1"
 
-revision=11am
+revision=$(date +%y%m%d-%H%M)
 RESUBMIT=$1
 
 for job in $joblist; do

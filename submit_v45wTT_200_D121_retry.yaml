@@ -1,0 +1,107 @@
+Common:
+  mode: NTP
+  name: ntuples
+
+  tasks:
+    # - TT_RelVal_200PU
+    # - ZEE_RelVal_200PU
+    # - ZMM_RelVal_200PU
+    - QQHtoTaus_RelVal_200PU
+    # - Hto2gg_RelVal_200PU
+    # - MinBias_RelVal_200PU
+    # - TT_RelVal_noPU
+    # - ZEE_RelVal_noPU
+    # - ZMM_RelVal_noPU
+    # - QQHtoTaus_RelVal_noPU
+    # - Hto2gg_RelVal_noPU
+    # - MinBias_RelVal_noPU
+  cmssw_config: cmsrun/v45_rerunL1wTT_RelVal_cfg.py
+  version: V45_reL1wTT_200_D121_retry
+  output_dir_base: /eos/cms/store/group/dpg_trigger/comm_trigger/L1Trigger/roward/phase2/menu/ntuples/RelVal/200_D121_retry/v45/
+  # output_dir_base: /eos/user/r/roward/CMS/phase2/menu/ntuples/RelVal/200_D121_retry/v45/
+  ncpu: 4
+  output_file_name: L1Nano.root
+
+ZEE_RelVal_200PU:
+  input_dataset: /RelValZEE_14/CMSSW_20_0_0-PU_150X_mcRun4_realistic_v1_STD_D121_RegeneratedGS_PU_16Aug26-v6/GEN-SIM-DIGI-RAW
+  crab: True
+  splitting_mode: Automatic
+  splitting_granularity: 200
+  max_events: -1
+
+ZMM_RelVal_200PU:
+  input_dataset: /RelValZMM_14/CMSSW_20_0_0-PU_150X_mcRun4_realistic_v1_STD_D121_RegeneratedGS_PU_16Aug26-v6/GEN-SIM-DIGI-RAW
+  crab: True
+  splitting_mode: Automatic
+  splitting_granularity: 200
+  max_events: -1
+
+QQHtoTaus_RelVal_200PU:
+  input_dataset: /RelValQQToHToTauTau_14TeV/CMSSW_20_0_0-PU_150X_mcRun4_realistic_v1_STD_D121_RegeneratedGS_PU_16Aug26-v6/GEN-SIM-DIGI-RAW
+  crab: True
+  splitting_mode: Automatic
+  splitting_granularity: 200
+  max_events: -1
+
+Hto2gg_RelVal_200PU: 
+  input_dataset: /RelValH125GGgluonfusion_14/CMSSW_20_0_0-PU_150X_mcRun4_realistic_v1_STD_D121_RegeneratedGS_PU_16Aug26-v6/GEN-SIM-DIGI-RAW
+  crab: True
+  splitting_mode: Automatic
+  splitting_granularity: 200
+  max_events: -1
+
+TT_RelVal_200PU:
+  input_dataset: /RelValTTbar_14TeV/CMSSW_20_0_0-PU_150X_mcRun4_realistic_v1_STD_D121_RegeneratedGS_PU_16Aug26-v6/GEN-SIM-DIGI-RAW
+  crab: True
+  splitting_mode: Automatic
+  splitting_granularity: 200
+  max_events: -1
+
+MinBias_RelVal_200PU:
+  input_dataset: /RelValMinBias_14TeV/CMSSW_20_0_0-PU_150X_mcRun4_realistic_v1_STD_D121_RegeneratedGS_PU_16Aug26-v6/GEN-SIM-DIGI-RAW
+  crab: True
+  splitting_mode: Automatic
+  splitting_granularity: 200
+  max_events: -1
+
+# ZEE_RelVal_noPU:
+#   input_dataset: /RelValZEE_14/CMSSW_20_0_0-150X_mcRun4_realistic_v1_STD_D121_RecycledGEN_noPU_16Aug26-v2/GEN-SIM-DIGI-RAW
+#   crab: True
+#   splitting_mode: Automatic
+#   splitting_granularity: 200
+#   max_events: -1
+
+# ZMM_RelVal_noPU:
+#   input_dataset: /RelValZMM_14/CMSSW_20_0_0-150X_mcRun4_realistic_v1_STD_D121_RecycledGEN_noPU_16Aug26-v2/GEN-SIM-DIGI-RAW
+#   crab: True
+#   splitting_mode: Automatic
+#   splitting_granularity: 200
+#   max_events: -1
+
+# QQHtoTaus_RelVal_noPU:
+#   input_dataset: /RelValQQToHToTauTau_14TeV/CMSSW_20_0_0-150X_mcRun4_realistic_v1_STD_D121_RecycledGEN_noPU_16Aug26-v2/GEN-SIM-DIGI-RAW
+#   crab: True
+#   splitting_mode: Automatic
+#   splitting_granularity: 200
+#   max_events: -1
+
+# Hto2gg_RelVal_noPU: 
+#   input_dataset: /RelValH125GGgluonfusion_14/CMSSW_20_0_0-150X_mcRun4_realistic_v1_STD_D121_RecycledGEN_noPU_16Aug26-v2/GEN-SIM-DIGI-RAW
+#   crab: True
+#   splitting_mode: Automatic
+#   splitting_granularity: 200
+#   max_events: -1
+
+# TT_RelVal_noPU:
+#   input_dataset: /RelValTTbar_14TeV/CMSSW_20_0_0-150X_mcRun4_realistic_v1_STD_D121_RecycledGEN_noPU_16Aug26-v2/GEN-SIM-DIGI-RAW
+#   crab: True
+#   splitting_mode: Automatic
+#   splitting_granularity: 200
+#   max_events: -1
+
+# MinBias_RelVal_noPU:
+#   input_dataset: /RelValMinBias_14TeV/CMSSW_20_0_0-150X_mcRun4_realistic_v1_STD_D121_RecycledGEN_noPU_16Aug26-v2/GEN-SIM-DIGI-RAW
+#   crab: True
+#   splitting_mode: Automatic
+#   splitting_granularity: 200
+#   max_events: -1
