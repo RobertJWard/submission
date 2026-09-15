@@ -1,36 +1,17 @@
-# joblist="151X_D110 151X_D116 151X_D121 151pre3_only48136 151pre3_SC8Nano"
-# joblist="151pre3_L1EGupdate1"
-# joblist="151pre3_E2ENNVtx 151pre3_E2ENNVtxOff 151X_E2ENNVtx 151X_L1EGupdate2"
-# joblist="151X_E2ENNVtx 151X_L1EGupdate2 151pre3_L1EGupdate3 151pre3_E2ENNVtxOnlyFind 151pre3_E2ENNVtxOnlyAssoc"
-# joblist="151X_E2ENNVtx 151X_L1EGupdate2 151pre3 151pre3_E2ENNVtxOnlyFind 151pre3_E2ENNVtxOnlyAssoc"
-# joblist="151pre3"
-# joblist="151pre3_DispVtx 151pre1 151pre3_L1EGupdate4 151X_MergedAR24_FindOff 151X_MergedAR24_FindOn 151X_AllAR25_FindOff 151X_AllAR25_FindOn 151X_AllAR25_FindOnAssocOn 151X_AllAR25_FindOffAssocOn"
-# joblist="151pre3_E2ENNVtxOnlyFind 151pre3_E2ENNVtxOnlyAssoc"
-# joblist="151X_preHCAL 151X_postHCAL"
-# joblist="151X_noHCALStep 151X_rerunHCALStep 151X_newHCALStep 151pre4_P2GT"
-# joblist="151X_noHCALStep_retry 151X_rerunHCALStep_retry 151X_newHCALStep_retry 151pre4_P2GT_retry 151pre4_P2GTupdate1"
-# joblist="151pre4_P2GT_retry 151pre4_P2GTupdate1"
-# joblist="151pre4_P2GTupdate2"
-# joblist="151pre4_P2GTupdate4"
-# joblist="151pre4 160pre1 160pre2"
-# joblist="151pre4_retry 160pre2_retry"
-# joblist="160pre2_retry"
-# joblist="151pre4_VBF 160pre1_VBF"
-# joblist="170pre1"
-# joblist="170pre1_MuonOMTF 161pre4 161pre3"
-# joblist="170pre1_NGJetModel 161pre4_MuonGMT 161pre4_CorrEmu"
-# joblist="170pre2"
-# joblist="170pre1_MuonOMTFUpdate1"
-# joblist="170pre2_JetWord"
-# joblist="200_D121 200_D127"
-# joblist="200_D128"
-joblist="200_D121_retry"
-# joblist="170pre3"
-# joblist="200pre1_RelVal 170pre3_3rdTrain 200pre1_MuonShower"
-# joblist="200pre1_RelValwL1 170pre3_3rdTrain 200pre1_MuonShowerwL1"
+# Note: run with e.g `source scripts/checkMultiple.sh "<joblist>" <resubmit>
+# joblist is a set of space separated submissions jobs to check (e.g "170pre3 170pre2" though can also just be a single job), and resubmit is TRUE or FALSE to try resubmitting failed jobs (FALSE by default)
+# suggest to make a file 'ignore.checkMultiple.sh' bash source file which contains this command and which stores the history of your checks (via commented out joblists) that don't make sense to push to the repository 
 
 revision=$(date +%y%m%d-%H%M)
-RESUBMIT=$1
+joblist=$1
+RESUBMIT=$2
+
+if [[ -z $joblist ]]; then
+    echo 'Error: missing a joblist - run with e.g source scripts/checkMultiple.sh "<joblist>"'
+    return
+fi
+
+echo "joblist: $joblist"
 
 for job in $joblist; do
     if [[ $RESUBMIT == "TRUE" ]]; then
