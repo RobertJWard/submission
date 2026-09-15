@@ -3,7 +3,8 @@
 # INPUTS="200pre1_RelValwL1 200pre1_MuonShowerwL1"
 # INPUTS="200_D121 200_D127"
 # INPUTS="200_D128"
-INPUTS="200_D121"
+# INPUTS="200_D121"
+INPUTS="200_D121_retry"
 
 # Usage: hadd.sh [--timestamp]
 #   default:     manifest mode - tracks exactly which files were included (safe against duplicates)
