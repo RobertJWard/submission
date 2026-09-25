@@ -1,29 +1,24 @@
-# INPUT=$1
-# INPUTS="151X_preHCAL 151X_postHCAL"
-# INPUTS="151X_noHCALStep 151X_rerunHCALStep 151X_newHCALStep 151pre4_P2GT"
-# INPUTS="151X_noHCALStep_retry 151X_rerunHCALStep_retry 151X_newHCALStep_retry"
-# INPUTS="151pre4_P2GT_retry 151pre4_P2GTupdate1"
-# INPUTS="151pre4_P2GTupdate4"
-# INPUTS="151pre4_retry"
-# INPUTS="151pre4_VBF 160pre1_VBF"
-# INPUTS="170pre1"
-# INPUTS="170pre1_MuonOMTF 161pre4 161pre3"
-# INPUTS="170pre1_NGJetModel 161pre4_MuonGMT 161pre4_CorrEmu"
-# INPUTS="170pre2"
-INPUTS="170pre3"
-# INPUTS="170pre1_MuonOMTFUpdate1"
-# INPUTS="170pre2_JetWord"
-# INPUTS="170pre3_3rdTrain"
-
-# Usage: hadd.sh [--timestamp]
+# Usage: source hadd.sh "<inputs>" [--timestamp]
 #   default:     manifest mode - tracks exactly which files were included (safe against duplicates)
 #   --timestamp: timestamp mode - includes any input file newer than the hadd output (best-effort,
 #                may miss files delivered during the original hadd run)
+# inputs is a set of space-separated inputs to hadd (e.g "170pre3 170pre2" though can also just be a sample)
+# suggest to make a file 'ignore.hadd.sh' bash source file which contains this command and which stores
+# the history of your checks (via commented out inputs) that don't make sense to push to the repository 
+
+INPUTS=$1
+
 USE_TIMESTAMP=false
-[ "$1" = "--timestamp" ] && USE_TIMESTAMP=true
+[ "$2" = "--timestamp" ] && USE_TIMESTAMP=true
 echo "Mode: $([ "$USE_TIMESTAMP" = true ] && echo 'timestamp' || echo 'manifest')"
 
-REVISION=$(date +%y%m%d)
+
+if [[ -z $INPUTS ]]; then
+    echo 'Error: missing input sample list - run with e.g source scripts/hadd.sh "<inputs>"'
+    return
+fi
+
+REVISION=$(date +%y%m%d-%H%M)
 
 TEMP=$(mktemp -d)
 echo "Temp directory is $TEMP"
@@ -75,7 +70,7 @@ haddFiles() {
 
 for INPUT in $INPUTS; do
     echo "INPUT: $INPUT" |& tee logs/hadd_${INPUT}_${REVISION}.log
-    for sample in $(find "$PARENTDIR/$INPUT/v45/" -wholename "*_TuneCP5*/0000" ! -wholename "*LongLived*"); do
+    for sample in $(find "$PARENTDIR/$INPUT/v45/" -wholename "*_TuneCP5*/0000" ! -wholename "*LongLived*" ! -wholename "*Displaced*"); do
         while [ $(jobs -p | wc -l) -ge $MAX_JOBS ]; do
             sleep 3
         done

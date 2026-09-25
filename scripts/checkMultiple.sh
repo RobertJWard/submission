@@ -1,6 +1,8 @@
 # Note: run with e.g `source scripts/checkMultiple.sh "<joblist>" <resubmit>
-# joblist is a set of space separated submissions jobs to check (e.g "170pre3 170pre2" though can also just be a single job), and resubmit is TRUE or FALSE to try resubmitting failed jobs (FALSE by default)
-# suggest to make a file 'ignore.checkMultiple.sh' bash source file which contains this command and which stores the history of your checks (via commented out joblists) that don't make sense to push to the repository 
+# joblist is a set of space-separated submissions jobs to check (e.g "170pre3 170pre2" though can also just be a single job),
+# and resubmit is TRUE or FALSE to try resubmitting failed jobs (FALSE by default)
+# suggest to make a file 'ignore.checkMultiple.sh' bash source file which contains this command and which stores
+# the history of your checks (via commented out joblists) that don't make sense to push to the repository 
 
 revision=$(date +%y%m%d-%H%M)
 joblist=$1
