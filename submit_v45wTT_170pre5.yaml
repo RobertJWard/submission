@@ -20,7 +20,7 @@ Common:
     # - VBFHtoInv_Spring24_200PU
     # - GluGluToHHTo2B2Tau_Spring24_200PU
     # - GluGluToHHTo4B_Spring24_200PU
-    # # - WTo3Pi_Spring24_200PU
+    # - WTo3Pi_Spring24_200PU
     ### Long lived samples
     - DisplacedMuons_Pt-2To10_Spring24_200PU
     - DisplacedMuons_Pt-10To30_Spring24_200PU
@@ -40,8 +40,8 @@ Common:
     - HTo2LongLivedTo4mu_MH-125_MFF-50_CTau-10000mm_Spring24_200PU
     - HTo2LongLivedTo4mu_MH-125_MFF-50_CTau-3000mm_Spring24_200PU
   cmssw_config: cmsrun/v45_rerunL1wTT_AR26_cfg.py
-  version: V45_reL1wTT_170pre3
-  output_dir_base: /eos/cms/store/group/dpg_trigger/comm_trigger/L1Trigger/roward/phase2/menu/ntuples/Spring24/170pre3/v45/
+  version: V45_reL1wTT_170pre5
+  output_dir_base: /eos/cms/store/group/dpg_trigger/comm_trigger/L1Trigger/roward/phase2/menu/ntuples/Spring24/170pre5/v45/
   ncpu: 4
   output_file_name: L1Nano.root
 

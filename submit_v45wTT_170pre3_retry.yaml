@@ -12,7 +12,7 @@ Common:
     # - TT_Spring24_140PU
     # - DY_M50_Spring24_140PU
     # - VBFHtoTaus_Spring24_140PU
-    # - Hto2gg_Spring24_140PU
+    - Hto2gg_Spring24_140PU
     # # - DY_M10_Spring24_140PU
     # - MinBias_Spring24_140PU
     # - VBFHtoBB_Spring24_200PU
@@ -22,26 +22,26 @@ Common:
     # - GluGluToHHTo4B_Spring24_200PU
     # # - WTo3Pi_Spring24_200PU
     ### Long lived samples
-    - DisplacedMuons_Pt-2To10_Spring24_200PU
-    - DisplacedMuons_Pt-10To30_Spring24_200PU
-    - DisplacedMuons_Pt-30To100_Spring24_200PU
-    - DisplacedMuons_Pt-2To10_Spring24_140PU
-    - DisplacedMuons_Pt-10To30_Spring24_140PU
-    - DisplacedMuons_Pt-30To100_Spring24_140PU
-    # - DisplacedMuons_Pt-2To10_Spring24_noPU
-    # - DisplacedMuons_Pt-10To30_Spring24_noPU
-    # - DisplacedMuons_Pt-30To100_Spring24_noPU
-    - HTo2LongLivedTo2mu2jets_MH-125_MFF-20_CTau-1300mm_Spring24_200PU
-    - HTo2LongLivedTo2mu2jets_MH-125_MFF-50_CTau-5000mm_Spring24_200PU
-    - HTo2LongLivedTo4mu_MH-125_MFF-12_CTau-10000mm_Spring24_200PU
-    - HTo2LongLivedTo4mu_MH-125_MFF-12_CTau-900mm_Spring24_200PU
-    - HTo2LongLivedTo4mu_MH-125_MFF-25_CTau-10000mm_Spring24_200PU
-    - HTo2LongLivedTo4mu_MH-125_MFF-25_CTau-1500mm_Spring24_200PU
-    - HTo2LongLivedTo4mu_MH-125_MFF-50_CTau-10000mm_Spring24_200PU
-    - HTo2LongLivedTo4mu_MH-125_MFF-50_CTau-3000mm_Spring24_200PU
+    # - DisplacedMuons_Pt-2To10_Spring24_200PU
+    # - DisplacedMuons_Pt-10To30_Spring24_200PU
+    # - DisplacedMuons_Pt-30To100_Spring24_200PU
+    # - DisplacedMuons_Pt-2To10_Spring24_140PU
+    # - DisplacedMuons_Pt-10To30_Spring24_140PU
+    # - DisplacedMuons_Pt-30To100_Spring24_140PU
+    # # - DisplacedMuons_Pt-2To10_Spring24_noPU
+    # # - DisplacedMuons_Pt-10To30_Spring24_noPU
+    # # - DisplacedMuons_Pt-30To100_Spring24_noPU
+    # - HTo2LongLivedTo2mu2jets_MH-125_MFF-20_CTau-1300mm_Spring24_200PU
+    # - HTo2LongLivedTo2mu2jets_MH-125_MFF-50_CTau-5000mm_Spring24_200PU
+    # - HTo2LongLivedTo4mu_MH-125_MFF-12_CTau-10000mm_Spring24_200PU
+    # - HTo2LongLivedTo4mu_MH-125_MFF-12_CTau-900mm_Spring24_200PU
+    # - HTo2LongLivedTo4mu_MH-125_MFF-25_CTau-10000mm_Spring24_200PU
+    # - HTo2LongLivedTo4mu_MH-125_MFF-25_CTau-1500mm_Spring24_200PU
+    # - HTo2LongLivedTo4mu_MH-125_MFF-50_CTau-10000mm_Spring24_200PU
+    # - HTo2LongLivedTo4mu_MH-125_MFF-50_CTau-3000mm_Spring24_200PU
   cmssw_config: cmsrun/v45_rerunL1wTT_AR26_cfg.py
-  version: V45_reL1wTT_170pre3
-  output_dir_base: /eos/cms/store/group/dpg_trigger/comm_trigger/L1Trigger/roward/phase2/menu/ntuples/Spring24/170pre3/v45/
+  version: V45_reL1wTT_170pre3_retry
+  output_dir_base: /eos/cms/store/group/dpg_trigger/comm_trigger/L1Trigger/roward/phase2/menu/ntuples/Spring24/170pre3_retry/v45/
   ncpu: 4
   output_file_name: L1Nano.root
 
