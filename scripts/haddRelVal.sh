@@ -1,25 +1,32 @@
-# INPUT=$1
-# INPUTS="200pre1_RelVal 200pre1_MuonShower"
-# INPUTS="200pre1_RelValwL1 200pre1_MuonShowerwL1"
-# INPUTS="200_D121 200_D127"
-# INPUTS="200_D128"
-# INPUTS="200_D121"
-INPUTS="200_D121_retry"
-
-# Usage: hadd.sh [--timestamp]
+# Usage: source haddRelVal.sh "<inputs>" [--timestamp]
 #   default:     manifest mode - tracks exactly which files were included (safe against duplicates)
 #   --timestamp: timestamp mode - includes any input file newer than the hadd output (best-effort,
 #                may miss files delivered during the original hadd run)
+# inputs is a set of space-separated inputs to hadd (e.g "170pre3 170pre2" though can also just be a sample)
+# suggest to make a file 'ignore.haddRelVal.sh' bash source file which contains this command and which stores
+# the history of your checks (via commented out inputs) that don't make sense to push to the repository
+
+INPUTS=$1
 USE_TIMESTAMP=false
-[ "$1" = "--timestamp" ] && USE_TIMESTAMP=true
+[ "$2" = "--timestamp" ] && USE_TIMESTAMP=true
 echo "Mode: $([ "$USE_TIMESTAMP" = true ] && echo 'timestamp' || echo 'manifest')"
 
-REVISION=$(date +%y%m%d)
+if [[ -z $INPUTS ]]; then
+    echo 'Error: missing input sample list - run with e.g source scripts/hadd.sh "<inputs>"'
+    return
+fi
+
+REVISION=$(date +%y%m%d-%H%M)
 
 TEMP=$(mktemp -d)
 echo "Temp directory is $TEMP"
 
 MAX_JOBS=12
+# Manifest mode leaves files modified in the last MIN_AGE minutes for the next run, as they may still be mid-transfer
+# (not applied in timestamp mode: a deferred file would end up older than the hadd output and never be picked up)
+MIN_AGE=5
+AGE_CUT="-mmin +$MIN_AGE"
+[ "$USE_TIMESTAMP" = true ] && AGE_CUT=""
 PARENTDIR="/eos/cms/store/group/dpg_trigger/comm_trigger/L1Trigger/roward/phase2/menu/ntuples/RelVal"
 
 haddFiles() {
@@ -31,7 +38,7 @@ haddFiles() {
     local tempPU=${sample#*RelVal_}
     local samplePU=${tempPU%%_V45*}
     echo -e "Sample: $sampleShort\nPU: $samplePU\nDirectory: $sample" |& tee -a logs/hadd_${INPUT}_${REVISION}.log
-    local hadddir=${sample/0000/hadd}
+    local hadddir=${sample%/0000}/hadd
     local haddfile=$hadddir/output_Phase2_L1T.root
     local manifest=$hadddir/hadd_inputs.txt
 
@@ -43,7 +50,7 @@ haddFiles() {
         if [ "$USE_TIMESTAMP" = true ]; then
             mapfile -t new_files < <(find "$sample" -name "output_*.root" -newer "$haddfile")
         else
-            for f in $sample/output_*.root; do
+            for f in $(find "$sample" -name "output_*.root" $AGE_CUT); do
                 grep -qxF "$f" "$manifest" 2>/dev/null || new_files+=("$f")
             done
         fi
@@ -58,8 +65,9 @@ haddFiles() {
             echo "Append complete: $INPUT $sampleShort $samplePU" |& tee -a logs/hadd_${INPUT}_${REVISION}.log
         fi
     else
+        local all_files=($(find "$sample" -name "output_*.root" $AGE_CUT))
+        [ ${#all_files[@]} -eq 0 ] && { echo "No eligible input files yet, skipping: $sampleShort $samplePU" |& tee -a logs/hadd_${INPUT}_${REVISION}.log; return; }
         mkdir $hadddir
-        local all_files=($sample/output_*.root)
 	# { time hadd -n 5 -j 12 -d $TEMP $TEMP/output_Phase2_L1T.root $sample/output_*.root; } |& tee -a logs/hadd_${INPUT}_${REVISION}.log
         { time hadd -fk -d $TEMP $TEMP/output_Phase2_L1T_${INPUT}_${sampleShort}_${samplePU}.root "${all_files[@]}"; } >> logs/hadd_${INPUT}_${REVISION}.log
         mv $TEMP/output_Phase2_L1T_${INPUT}_${sampleShort}_${samplePU}.root $haddfile
