@@ -30,12 +30,21 @@ if [[ $RESUBMIT == "TRUE" ]]; then
 else
     for job in $joblist; do
 	echo Summary for $job:
-	grep -r "finished" logs/check_${job}_${revision}.log
-	grep -r "   failed" logs/check_${job}_${revision}.log
-	grep -r "running" logs/check_${job}_${revision}.log
-	grep -r "transferring" logs/check_${job}_${revision}.log
-	grep -r "rescheduled" logs/check_${job}_${revision}.log
-	grep -r "idle" logs/check_${job}_${revision}.log
+	source scripts/summariseCrabLog.sh logs/check_${job}_${revision}.log
     done
 fi
+
+# if [[ $RESUBMIT == "TRUE" ]]; then
+#     echo Done # do nothing
+# else
+#     for job in $joblist; do
+# 	echo Summary for $job:
+# 	grep -r "finished" logs/check_${job}_${revision}.log
+# 	grep -r "   failed" logs/check_${job}_${revision}.log
+# 	grep -r "running" logs/check_${job}_${revision}.log
+# 	grep -r "transferring" logs/check_${job}_${revision}.log
+# 	grep -r "rescheduled" logs/check_${job}_${revision}.log
+# 	grep -r "idle" logs/check_${job}_${revision}.log
+#     done
+# fi
 
