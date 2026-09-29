@@ -22,6 +22,9 @@ fi
 echo "Running crab status for subdirectories in $BASE_DIR..."
 
 STATUSDIR=$(mktemp -d)
+# The parallel part runs in a subshell with no stdin: job control is off there, so a crab call can never be paused
+# by the terminal ("Stopped (tty input)") and wait always waits for every crab status to finish.
+(
 pids=()
 for dir in "$BASE_DIR"/*/; do
     directory=$(basename "$dir")
@@ -48,10 +51,11 @@ for dir in "$BASE_DIR"/*/; do
     fi
 
     while [ $(jobs -pr | wc -l) -ge $MAX_PARALLEL ]; do sleep 1; done
-    { echo "Processing: $directory"; crab status -d "$crabdir"; } > "$out" 2>&1 &
+    { echo "Processing: $directory"; crab status -d "$crabdir"; } < /dev/null > "$out" 2>&1 &
     pids+=($!)
 done
 [ ${#pids[@]} -gt 0 ] && wait "${pids[@]}"
+)
 
 cat "$STATUSDIR"/*.log 2>/dev/null
 rm -r "$STATUSDIR"

@@ -28,6 +28,19 @@ esac
 
 echo "joblist: $joblist, action: $ACTION, filter: $FILTER"
 
+# The crab calls run in the background, where they can't ask for your grid passphrase, so make sure a proxy is valid first
+if ! voms-proxy-info -exists -valid 1:00 &> /dev/null; then
+    echo "No valid grid proxy (or less than 1h left), creating one:"
+    voms-proxy-init -voms cms -rfc -valid 192:00 || { echo "Error: could not create a grid proxy"; return 1; }
+fi
+
+# Ask before doing something drastic: y/yes (any case) continues, n/no or anything else skips
+_confirm() {
+    local answer
+    read -p "$1 [y/yes to continue, n/no to skip]: " answer
+    [[ ${answer,,} == y || ${answer,,} == yes ]]
+}
+
 for job in $joblist; do
     sub=V45_reL1wTT_$job
     log=logs/check_${job}_${revision}.log
@@ -51,8 +64,7 @@ for job in $joblist; do
         # It is moved aside (not deleted) to keep its crab.log; nothing on EOS needs touching.
         echo "Will move aside the crab_ project dirs of (so they can be submitted fresh):"
         printf '  %s\n' $targets
-        read -p "Type 'yes' to clear these: " answer
-        [[ $answer == yes ]] || { echo "Not clearing anything for $job"; continue; }
+        _confirm "Clear these?" || { echo "Not clearing anything for $job"; continue; }
         for t in $targets; do
             mv -v ntuples/$sub/$t/crab_$t ntuples/$sub/$t/old_crab_${t}_${revision} |& tee -a logs/clear_${job}_${revision}.log
         done
@@ -62,8 +74,7 @@ for job in $joblist; do
     echo "Will crab $ACTION${CRAB_OPTS:+ $CRAB_OPTS}:"
     printf '  %s\n' $targets
     if [[ $ACTION == kill ]]; then
-        read -p "Type 'yes' to kill these: " answer
-        [[ $answer == yes ]] || { echo "Not killing anything for $job"; continue; }
+        _confirm "Kill these?" || { echo "Not killing anything for $job"; continue; }
     fi
     for t in $targets; do
         echo "crab $ACTION: $t" |& tee -a logs/${ACTION}_${job}_${revision}.log
