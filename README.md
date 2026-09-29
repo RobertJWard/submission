@@ -8,11 +8,11 @@ Inline help:
 
 Create the Job configuration using the command:
 
-`python3 submit.py -f submit.yaml --create`
+`python3 submit.py -f <submit.yaml> --create`
 
 Submit the jobs to the queues via the command:
 
-`python submit.py -f submit.yaml --submit`
+`python submit.py -f <submit.yaml> --submit`
 
 ## Configuration file
 
@@ -33,7 +33,7 @@ For the `job_flavor` and other condor parameters please refer to the [CERN Condo
 
 If you want to add a new set of templates you need to define a new mode (`MODE`) in:
 
-https://github.com/cerminar/submission/blob/master/submit.py#L101
+https://github.com/<fork>/submission/blob/master/submit.py#L101
 
 Note the code assumes that all keys starting with `TEMPL_` are variables in the templated files that need to be replaced.
 
@@ -44,3 +44,23 @@ You need 1 or 2 templated files:
 1. `condorSubmit_MODE.sub`: this defines the structure of the Condor submission file. If you don't need to modify it you can use the `condorSubmit_DEFAULT.sub` one (see [CERN Condor documentation](http://batchdocs.web.cern.ch/batchdocs/local/index.html));
 2. `jobCustomization_MODE_cfg.py.` which defines what needs to be changed for each job of the cluster.
 3. `run_MODE.sh`: this is the script which actually gets executed on the node, setups the config and calls cmsRun. Again a `run_DEFAULT.sh` exists and should work for most cases.
+
+## Helper scripts
+
+Create and submit in one go (prints the CMSSW release first as a sanity check):
+
+`source scripts/quickSubmit.sh <submit.yaml>`
+
+Check CRAB submissions (each entry in the list is assumed to be prefixed with `V45_reL1wTT_`). The full `crab status` output goes to `logs/check_<job>_<date>.log`, and a one-line-per-task summary is printed:
+
+```bash
+source scripts/checkMultiple.sh "170pre4 170pre5"                  # check everything
+source scripts/checkMultiple.sh "170pre5" check "4mu"              # only tasks matching a regex
+source scripts/checkMultiple.sh "170pre5" resubmit                 # crab resubmit the FAILED tasks only
+CRAB_OPTS="--maxmemory=6000" source scripts/checkMultiple.sh "170pre5" resubmit
+source scripts/checkMultiple.sh "170pre5" kill "4mu"               # crab kill still-running tasks (asks first)
+source scripts/checkMultiple.sh "170pre5" clear "4mu"              # move aside crab_ dirs of SUBMITREFUSED tasks so they can be submitted fresh (asks first)
+source scripts/summariseCrabLog.sh logs/check_170pre5_*.log        # re-summarise existing logs without calling crab
+```
+
+Tasks older than 40 days are not queried, as CRAB has purged their job details by then.
