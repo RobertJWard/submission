@@ -40,9 +40,35 @@ if [[ -z $CMSSW_BASE ]]; then
 fi
 
 # The crab calls run in the background, where they can't ask for your grid passphrase, so make sure a proxy is valid first
-if ! voms-proxy-info -exists -valid 1:00 &> /dev/null; then
-    echo "No valid grid proxy (or less than 1h left), creating one:"
+# (including its CMS attribute, which -exists alone does not check)
+if ! voms-proxy-info -exists -valid 1:00 -acexists cms &> /dev/null; then
+    echo "No valid grid proxy (or less than 1h left, or no CMS attribute), creating one:"
     voms-proxy-init -voms cms -rfc -valid 192:00 || { echo "Error: could not create a grid proxy"; return 1; }
+fi
+
+# crab occasionally renews its own server-side credential, asking for your grid passphrase even when the local proxy
+# is fine. Let one crab call do that here in the foreground, so the parallel ones later don't all try to ask at once.
+# Use a task that was actually submitted (its crab.log has a task name), so a broken leftover crab_ dir can't block the run.
+_first=""
+for job in $joblist; do
+    _first=$(grep -l '[0-9]\{6\}_[0-9]\{6\}:' ntuples/V45_reL1wTT_$job/*/crab_*/crab.log 2>/dev/null | head -1)
+    [[ -n $_first ]] && { _first=$(dirname "$_first"); break; }
+done
+if [[ -n $_first ]]; then
+    _crabtest=$(mktemp)
+    _ok=false
+    for _try in 1 2 3; do
+        crab status -d "$_first" > "$_crabtest" 2>&1
+        grep -q "Status on the CRAB server:" "$_crabtest" && { _ok=true; break; }
+        echo "crab could not get a task status (wrong grid passphrase?) - attempt $_try of 3"
+    done
+    if ! $_ok; then
+        echo "Error: crab status keeps failing, so not starting the parallel checks. Last lines from crab:"
+        tail -5 "$_crabtest"
+        rm -f "$_crabtest"
+        return 1
+    fi
+    rm -f "$_crabtest"
 fi
 
 # Ask before doing something drastic: y/yes (any case) continues, n/no or anything else skips
